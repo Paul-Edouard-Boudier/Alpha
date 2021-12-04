@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    {% for annee in annees %}
+                    <th scope="col"> année {{ annee.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in parcelles %}
+                <tr>
+                    <th scope="col"> parcelle {{p.name}}</th>
+                    {% for i in my_range %}
+                    <td>{{ p.annee_semence|get_semence:i}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4">
+        Liste semences
+        <div class="row">
+            {% for s in semences %}
+                <div class="col-3">
+                    {{s.name }}
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
