@@ -37,24 +37,25 @@ function handleDropEvent( event, ui )
   	$(this).css("background-color", "#cade75");
   else
   	$(this).css("background-color", "#cfacac");
-  	
+  var cellule = $(this);
+  var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();	
   var donnees = '{"cellule":"' + $(this).attr('id') + '", "culture":"'+draggable.text()+'"}';
-  alert (donnees);
-   /*$.ajax({
-		url: ,
+  //alert (donnees);
+  $.ajax({
+		url: 'updateassol',
 		type: "POST",
 		dataType: 'json',
 		data: donnees,
+		headers: {'X-CSRFToken': csrftoken},
 		success: function(resData){
+		  	cellule.html('<div class="removable">'+draggable.text()+resData.bilanhydrique+'</div>');
 		  	
-			//console.log(dataw);					
+								
 		},
 			error:function(exception){
 				
 			}
 		});
-		
-  */	
   	
 }
 

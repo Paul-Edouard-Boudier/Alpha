@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Parcelle, Semence, Annee
 import random
 
@@ -31,7 +31,15 @@ def index(request):
     # import ipdb; ipdb.set_trace()
 
     return HttpResponse(template.render(context, request))
-
+    
+def update_assol(request):
+	data = {
+ 		'bilanhydrique':'1',
+ 		'besointemperature':'1',
+ 		'echaudage':'0'
+	}
+	return JsonResponse(data)
+	
 # def populate():
 #     Semence.objects.all().delete()
 #     # f = open('./static/populate.json', 'r')
