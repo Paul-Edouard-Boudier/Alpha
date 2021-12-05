@@ -20,7 +20,5 @@ from alpha import views as alpha
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', alpha.index),
-    # path('climate', alpha.evaluate_climate),
-    # path('rotation', alpha.evaluate_rotation),
-    # path('populate', alpha.populate)
+    path('updateassol', alpha.update_assol),
 ]

@@ -1,0 +1,106 @@
+body
+{
+    font-family: poppins;
+}
+header
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo
+{
+    text-align: left;
+}
+.logo--height
+{
+    width: 50%;
+    height: 50%;
+}
+
+.header__h1--size
+{
+    font-size: 400%;
+    text-align: center;
+    color: #9e7b7b;
+    
+}
+
+.one
+{
+    display: flex;
+    flex-direction: column;
+}
+.table__design
+{
+    display: flex;
+    flex-direction: row;
+    /*margin-bottom: 1%;*/
+}
+.choose
+{
+    font-size: 200%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.tableparc
+{ 
+    border-collapse: collapse;
+    font-size: 200%;
+    width: 80%;
+    border: 3px #cfacac solid;
+}
+.table_cellule--form
+{
+    text-align: center;
+    border: 1PX black solid;
+}
+
+.icon__bloc
+{
+    display: flex;
+    width: 80%;
+    margin-right : 10%;
+    margin-left : 10%;
+    align-items: center;
+    justify-content: center;
+}
+
+.button--design
+{
+    width: 120px;
+    height: 50px;
+    border: 1px solid #cfacac;
+    border-radius: 60px;
+    background-color: #F9D769;
+    padding: 0.6%;
+    margin: 1%;
+    transform: scale(1);
+    transition: transform 1000ms;
+    object-fit: cover;
+    text-align:center;
+}
+.button--design:hover
+{
+    transform: scale(1.20);
+    cursor: pointer;
+}
+.icon
+{
+    width: 40%;
+    display: block;
+    width: 60%;
+    margin: 20%;
+}
+
+.graph
+{
+    display: flex;
+    flex-direction: column;
+}
+.graph1
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
