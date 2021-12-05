@@ -7,23 +7,23 @@ $(document).ready(function() {
         }
     );
     $('.draggable').css('cursor', 'pointer');
-    
-    $('.draggable-receptacle').droppable( 
+
+    $('.draggable-receptacle').droppable(
     {
     	drop: handleDropEvent
     } );
-    
-    $('.trash').droppable( 
+
+    $('.trash').droppable(
     {
     	drop: handleDropEventSuppr
     } );
-    
+
 })
 
 
-function handleDropEvent( event, ui ) 
+function handleDropEvent( event, ui )
 {
-  var draggable = ui.draggable;	
+  var draggable = ui.draggable;
   if (draggable.hasClass("removable"))
   	return;
   $(this).html('<div class="removable">'+draggable.text()+'</div>');
@@ -38,8 +38,8 @@ function handleDropEvent( event, ui )
   else
   	$(this).css("background-color", "#cfacac");
   var cellule = $(this);
-  var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();	
-  var donnees = '{"cellule":"' + $(this).attr('id') + '", "culture":"'+draggable.text()+'"}';
+  var csrftoken = $('input[name="csrfmiddlewaretoken"]').val();
+  var donnees = {"cellule":$(this).attr('id'), "culture":draggable.text()};
   //alert (donnees);
   $.ajax({
 		url: 'updateassol',
@@ -49,21 +49,21 @@ function handleDropEvent( event, ui )
 		headers: {'X-CSRFToken': csrftoken},
 		success: function(resData){
 		  	cellule.html('<div class="removable">'+draggable.text()+resData.bilanhydrique+'</div>');
-		  	
-								
+
+
 		},
 			error:function(exception){
-				
+
 			}
 		});
-  	
+
 }
 
 function handleDropEventSuppr( event, ui ) {
 	ui.draggable.parent().css("background-color","white");
-	
+
 	if (ui.draggable.hasClass("removable"))
 		ui.draggable.remove();
-	
+
 
 }
