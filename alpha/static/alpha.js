@@ -48,9 +48,15 @@ function handleDropEvent( event, ui )
 		data: donnees,
 		headers: {'X-CSRFToken': csrftoken},
 		success: function(resData){
-		  	cellule.html('<div class="removable">'+draggable.text()+resData.bilanhydrique+'</div>');
-
-
+			bh = " ";
+			if(!resData.bilanhydrique)
+				bh = '<img src=/static/images/drop.png width="30px" height="30px">';
+			st = " ";
+			if (!resData.besointemperature)
+				st = '<img src=/static/images/snow.png width="30px" height="30px">';
+		  	cellule.html('<div class="removable">'+draggable.text()+bh+st+'</div>');
+		  	cellule.attr ('data-culture', draggable.text());
+		  	
 		},
 			error:function(exception){
 
@@ -66,4 +72,10 @@ function handleDropEventSuppr( event, ui ) {
 		ui.draggable.remove();
 
 
+}
+
+
+function camenbert ()
+{
+	
 }
