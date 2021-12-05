@@ -33,7 +33,7 @@ def update_assol(request):
     id_parcelle, annee = request.POST.dict()['cellule'].split('-')
     culture = request.POST.dict()['culture']
     parcelle = Parcelle.objects.get(id=id_parcelle)
-    note_rotation = None
+    note_rotation = -1
     update_parcel(parcelle, annee, culture)
     if len(parcelle.annee_semence.keys()) == 3:
         note_rotation = get_note_rotation(parcelle)
@@ -47,9 +47,9 @@ def update_assol(request):
     data_user.semis = f"{data_user.semis}/{annee}"
     data_user.semis = datetime.strptime(data_user.semis, '%d/%m/%Y')
     if data_user.annee_recolte == 'n':
-        data_user.recolte = f"{data_user.recolte}/{annee}"
+        data_user.recolte = f"{data_user.recolte}/{int(annee)}"
     else:
-        data_user.recolte = f"{data_user.recolte}/{annee + 1}"
+        data_user.recolte = f"{data_user.recolte}/{int(annee) + 1}"
     data_user.recolte = datetime.strptime(data_user.recolte, '%d/%m/%Y')
     somme_cum_pluvio, somme_cum_temp = evaluation.cumulated_sum(data, data_user.semis, data_user.recolte,
                                                                 int(data_user.temperature_base))
