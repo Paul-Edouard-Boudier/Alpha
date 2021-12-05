@@ -3,49 +3,43 @@
 
 
 {% block content %}
-<div class="row">
-    <div class="col-3">
-        <select class="custom-select" id="scenario-selector">
-            <option selected>Scénario actuel</option>
-            <option value="1">Scénario futur</option>
-        </select>
-    </div>
-    <div class="col-6">
-        <table class="table">
-            <thead>
-                <tr class="years">
-                    <th scope="col">#</th>
-                    {% for annee in annees %}
-                    <th data-other-year="{{annee.name|futurist}}" scope="col">{{ annee.name }}</th>
-                    {% endfor %}
-                    <th scope="col">Score global</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for p in parcelles %}
-                <tr>
-                    <th scope="col"> parcelle {{p.name}}</th>
-                    {% for i in my_range %}
-                    <td class="draggable-receptacle">{{ p.annee_semence|get_semence:i}}</td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <div class="col-2">
-        Liste semences
-        <div class="row">
-            {% for s in semences %}
-                <div class="col-3 draggable draggable-receptacle">
-                    {{s.name }}
+{% load static %}
+<section class="one">
+	<div class="table__design">
+		<div class="choose">
+                    <a href="#"><img src="{% static 'images/inf.png' %}" alt="<" width="20px"></a>
+                </div>  
+		<table class="tableparc" id="tbleAssol">
+		    <thead>
+			<tr>
+			    <th class="table_cellule--form" scope="col">#</th>
+			    {% for annee in annees %}
+			    <th class="table_cellule--form" scope="col"> année {{ annee.name }}</th>
+			    {% endfor %}
+			</tr>
+		    </thead>
+		    <tbody>
+			{% for p in parcelles %}
+			<tr>
+			    <th class="table_cellule--form" scope="col"> parcelle {{p.name}}</th>
+			    {% for annee in annees %}
+			    <td class="draggable-receptacle table_cellule--form" id="{{p.id}}-{{annee.name}}"></td>
+			    {% endfor %}
+			</tr>
+			{% endfor %}
+		    </tbody>
+		</table>
+		<div class="choose">
+                    <a href="#"><img src="{% static 'images/sup.png' %}" alt=">" width="20px"></a>
                 </div>
-
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<svg id="pie_chart" width = "400" height = "400"></svg>
-<!-- <button type="button" class="btn btn-dark col-1">Calcul</button> -->
+         </div>
+        <div class="trash">
+	        <div class="icon__bloc">
+	        	{% for s in semences %}
+				<div class="button--design draggable" data-rang="{{s.rang_de_culture}}">{{s.name }}</div>
+			{% endfor %}
+	 		
+	        </div>
+    	</div>
+</section>
 {% endblock %}
