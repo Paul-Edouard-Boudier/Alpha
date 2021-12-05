@@ -77,6 +77,7 @@ def get_note_rotation(parcelle):
     for year, culture in parcelle.annee_semence.items():
         data[year] = Semence.objects.get(name=culture)
     return evaluation.evaluate_rotation(data)
+
 # def populate():
 # populate()
 # s_ids = Semence.objects.all().values_list('id', flat=True)

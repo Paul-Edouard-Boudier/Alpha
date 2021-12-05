@@ -26,7 +26,7 @@ function handleDropEvent( event, ui )
   var draggable = ui.draggable;
   if (draggable.hasClass("removable"))
   	return;
-  $(this).html('<div class="removable">'+draggable.text()+'</div>');
+  //$(this).html('<div class="removable">'+draggable.text()+'</div>');
   $('.removable').draggable ({helper: 'original', containment: 'window', revert:true});
   $('.removable').css('cursor', 'pointer');
   if (draggable.data("rang") == "T")
@@ -48,9 +48,17 @@ function handleDropEvent( event, ui )
 		data: donnees,
 		headers: {'X-CSRFToken': csrftoken},
 		success: function(resData){
-		  	cellule.html('<div class="removable">'+draggable.text()+resData.bilanhydrique+'</div>');
-
-
+			var bh = "";
+			if (resData.bilanhydrique == 1)
+				bh = '<img src="/static/images/drop.png">';
+			var st = "";
+			if (resData.besointemperature == 1)
+				st = '<img src="/static/images/snow.png">';	
+			var ech = "";
+			if (resData.echaudage == 1)
+				ech = '<img src="/static/images/fire.png">';
+		
+		  	cellule.html('<div class="removable">'+draggable.text()+bh+st+ech+'</div>');
 		},
 			error:function(exception){
 
