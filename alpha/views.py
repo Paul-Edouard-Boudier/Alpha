@@ -54,9 +54,17 @@ def update_assol(request):
     somme_cum_pluvio, somme_cum_temp = evaluation.cumulated_sum(data, data_user.semis, data_user.recolte,
                                                                 int(data_user.temperature_base))
     note_climat = evaluation.evaluate_climate(somme_cum_pluvio, somme_cum_temp, data_user)
-    bilanhydrique = (somme_cum_pluvio >= data_user.besoin_eau)
-    besointemperature = (somme_cum_temp >= data_user.besoin_temperature)
+    if somme_cum_pluvio >= data_user.besoin_eau:
+        bilanhydrique = 1
+    else:
+        bilanhydrique = 0
+    if somme_cum_temp >= data_user.besoin_temperature:
+        besointemperature = 1
+    else:
+        besointemperature = 0
+    alpha_score = bilanhydrique + besointemperature + note_rotation + note_climat
     data = {
+        'alpha_score': alpha_score,
         'bilanhydrique': bilanhydrique,
         'besointemperature': besointemperature,
         'echaudage': 0,
