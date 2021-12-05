@@ -56,7 +56,8 @@ function handleDropEvent( event, ui )
 				st = '<img src=/static/images/snow.png width="30px" height="30px">';
 		  	cellule.html('<div class="removable">'+draggable.text()+bh+st+'</div>');
 		  	cellule.attr ('data-culture', draggable.text());
-		  	
+		  	$('#as'+cellule.data ('idparc')).html(resData.alpha_score);
+		  	camenbert (cellule.data ('annee'));
 		},
 			error:function(exception){
 
@@ -75,7 +76,7 @@ function handleDropEventSuppr( event, ui ) {
 }
 
 
-function camenbert ()
+function camenbert (annee)
 {
-	
+	alert(annee);
 }

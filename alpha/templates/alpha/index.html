@@ -28,7 +28,7 @@
 			    <th class="table_cellule--form" scope="col"> 	{{p.name}}</th>
 			    <th class="table_cellule--form" scope="col"> {{p.taille}} ha</th>
 			    {% for annee in annees %}
-			    <td class="draggable-receptacle table_cellule--form" id="{{p.id}}-{{annee.name}}" data-surface="{{p.taille}}" data-culture="" data-annee="{{annee.name}}"></td>
+			    <td class="draggable-receptacle table_cellule--form" id="{{p.id}}-{{annee.name}}" data-idparc="{{p.id}}" data-surface="{{p.taille}}" data-culture="" data-annee="{{annee.name}}"></td>
 			    {% endfor %}
 			    <td class="table_cellule--form" id="as{{p.id}}"></td>
 			</tr>
