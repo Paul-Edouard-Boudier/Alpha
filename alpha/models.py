@@ -7,11 +7,15 @@ class Semence(models.Model):
     """
     fiche de culture classique utilisée dans le tableau
     """
-    name = models.CharField(max_length=30)
-    semis = models.CharField(max_length=100)
-    recolte = models.CharField(max_length=100)
-    besoin_eau = models.IntegerField()
-    besoin_temperature = models.IntegerField()
+    name = models.CharField(max_length=30, null=True)
+    semis = models.CharField(max_length=100, null=True)
+    recolte = models.CharField(max_length=100, null=True)
+    besoin_eau = models.IntegerField(null=True)
+    besoin_temperature = models.IntegerField(null=True)
+    temperature_base = models.CharField(max_length=30, null=True, default="")
+    rang_de_culture = models.CharField(max_length=1, null=True, default="")
+    frequence_culture = models.IntegerField(null=True, default=1)
+    annee_recolte = models.CharField(max_length=3, null=True, default="")
 
 
 class Annee(models.Model):

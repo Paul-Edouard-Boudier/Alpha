@@ -1,16 +1,24 @@
 {% extends "base.html" %}
 {% load custom_tags %}
 
+
 {% block content %}
 <div class="row">
-    <div class="col-8">
+    <div class="col-3">
+        <select class="custom-select" id="scenario-selector">
+            <option selected>Scénario actuel</option>
+            <option value="1">Scénario futur</option>
+        </select>
+    </div>
+    <div class="col-6">
         <table class="table">
             <thead>
-                <tr>
+                <tr class="years">
                     <th scope="col">#</th>
                     {% for annee in annees %}
-                    <th scope="col"> année {{ annee.name }}</th>
+                    <th data-other-year="{{annee.name|futurist}}" scope="col">{{ annee.name }}</th>
                     {% endfor %}
+                    <th scope="col">Score global</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,18 +26,19 @@
                 <tr>
                     <th scope="col"> parcelle {{p.name}}</th>
                     {% for i in my_range %}
-                    <td>{{ p.annee_semence|get_semence:i}}</td>
+                    <td class="draggable-receptacle">{{ p.annee_semence|get_semence:i}}</td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="col-4">
+
+    <div class="col-2">
         Liste semences
         <div class="row">
             {% for s in semences %}
-                <div class="col-3">
+                <div class="col-3 draggable draggable-receptacle">
                     {{s.name }}
                 </div>
 
@@ -37,4 +46,6 @@
         </div>
     </div>
 </div>
+<svg id="pie_chart" width = "400" height = "400"></svg>
+<!-- <button type="button" class="btn btn-dark col-1">Calcul</button> -->
 {% endblock %}
