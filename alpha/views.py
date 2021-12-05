@@ -33,9 +33,10 @@ def update_assol(request):
     id_parcelle, annee = request.POST.dict()['cellule'].split('-')
     culture = request.POST.dict()['culture']
     parcelle = Parcelle.objects.get(id=id_parcelle)
-    # crop = 'Blé dur'
-    # annee = 2020
+    note_rotation = None
     update_parcel(parcelle, annee, culture)
+    if len(parcelle.annee_semence.keys()) == 3:
+        note_rotation = get_note_rotation(parcelle)
     data_user = semences.get(name=culture)
     t_base = 0
     data = pd.read_csv(Path(Path(__file__).parent, 'static', 'weather_data.csv'), sep=',')
@@ -53,24 +54,29 @@ def update_assol(request):
     somme_cum_pluvio, somme_cum_temp = evaluation.cumulated_sum(data, data_user.semis, data_user.recolte,
                                                                 int(data_user.temperature_base))
     note_climat = evaluation.evaluate_climate(somme_cum_pluvio, somme_cum_temp, data_user)
-    # 'note_climat': note_climat
+    bilanhydrique = (somme_cum_pluvio >= data_user.besoin_eau)
+    besointemperature = (somme_cum_temp >= data_user.besoin_temperature)
     data = {
-        'bilanhydrique': '1',
-        'besointemperature': '1',
-        'echaudage': '0'
+        'bilanhydrique': bilanhydrique,
+        'besointemperature': besointemperature,
+        'echaudage': 0,
+        'note_climat': note_climat,
+        'note_rotation': note_rotation,
+
         }
     return JsonResponse(data)
+
 
 def update_parcel(parcelle, annee, culture):
     parcelle.annee_semence[annee] = culture
     parcelle.save()
-    if len(parcelle.annee_semence.keys()) == 3:
-        data = {}
-        for year, culture in parcelle.annee_semence.items():
-            data[year] = Semence.objects.get(name=culture)
-        note_rotation = evaluation.evaluate_rotation(data)
-        import ipdb; ipdb.set_trace()
 
+
+def get_note_rotation(parcelle):
+    data = {}
+    for year, culture in parcelle.annee_semence.items():
+        data[year] = Semence.objects.get(name=culture)
+    return evaluation.evaluate_rotation(data)
 # def populate():
 # populate()
 # s_ids = Semence.objects.all().values_list('id', flat=True)
